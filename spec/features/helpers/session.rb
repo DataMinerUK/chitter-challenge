@@ -1,6 +1,6 @@
 module SessionHelpers
 
-  def sign_up
+  def sign_up # check out this gist on nice helper methodss: https://gist.github.com/ptolemybarnes/2dfda607b85d01e113b0
     user = User.new(user_params)
     visit '/'
     within 'form#sign_up' do

@@ -12,12 +12,12 @@ class Chitter < Sinatra::Base
     if current_user
       redirect '/sessions/new'
     else
-      @all_users = User.all.map{ |user| user.username }
+      @all_users = User.all.map{ |user| user.username } # this could be a method on User
       erb :'users/sign_up'
     end
   end
 
-  get '/:username' do
+  get '/:username' do # never define a route like this... bad things ensue because of the way chrome gets favicons >_<
     @user = User.first(username: params[:username])
     if @user
       get_users_peeps_and_replies
@@ -73,7 +73,7 @@ class Chitter < Sinatra::Base
     erb :'sessions/peeps'
   end
 
-  post '/sessions/end' do
+  post '/sessions/end' do # shouldn't this be delete /session?
     session.clear
     erb :'sessions/goodbye'
   end
@@ -96,7 +96,7 @@ class Chitter < Sinatra::Base
       User.get(session[:user_id])
     end
 
-    def get_users_peeps_and_replies
+    def get_users_peeps_and_replies # this could be a method on User
       @peeps = @user.peeps.all(:order => :time_stamp.desc )
       all_users_peep_ids = @peeps.map{ |peep| peep.id }
       replies = Peep.all(reply: true)

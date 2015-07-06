@@ -7,7 +7,7 @@ feature 'Signing in' do
 
   scenario 'user cannot sign in if they have not yet signed up' do
     visit '/'
-    within 'form#sign_in' do
+    within 'form#sign_in' do # you might want to extract this to a helper method
       fill_in 'username', with: 'not_signed_up'
       fill_in 'password', with: 'no_password'
     end

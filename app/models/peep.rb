@@ -1,8 +1,7 @@
 require 'data_mapper'
-require 'dm-validations'
+require 'dm-validations' # aren't these required in data_mapper_setup ?
 
 class Peep
-
   include DataMapper::Resource
 
   property :id,         Serial
