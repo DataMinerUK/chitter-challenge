@@ -9,6 +9,7 @@ gem 'sinatra-flash'
 gem 'dm-postgres-adapter'
 
 group :test do
+  gem 'metric_fu-Saikuro'
   gem 'launchy'
   gem 'database_cleaner'
   gem 'rspec'

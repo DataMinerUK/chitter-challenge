@@ -4,7 +4,6 @@ require 'sinatra/flash'
 require './app/data_mapper_setup'
 
 class Chitter < Sinatra::Base
-
   enable :sessions
   register Sinatra::Flash
 
@@ -27,7 +26,7 @@ class Chitter < Sinatra::Base
     end
   end
 
-  post '/:username' do
+  post '/:username' do # post '/peeps/:peep_id/replies'
     @user = User.first(username: params[:username])
     if params[:reply] == ''
       flash.now[:errors] = "Cannot post a blank peep!"
@@ -39,7 +38,7 @@ class Chitter < Sinatra::Base
     erb :'sessions/peeps'
   end
 
-  post '/users/new' do
+  post '/users/new' do # not a conventional route.. should be post '/users'
     @user = User.new(username: params[:username], name: params[:name], email: params[:email], password: params[:password])
     if @user.save
       session[:user_id] = @user.id
@@ -50,7 +49,7 @@ class Chitter < Sinatra::Base
     end
   end
 
-  post '/sessions/new' do
+  post '/sessions/new' do # 'post /sessions'
     if User.first(username: params[:username])
       @user = User.authenticate(username: params[:username], password: params[:password])
       if @user
@@ -78,13 +77,12 @@ class Chitter < Sinatra::Base
     erb :'sessions/goodbye'
   end
 
-  post '/peeps/new' do
+  post '/peeps/new' do # '/peeps'
     @user = current_user
     if params[:peep] == ''
       flash.now[:errors] = "Cannot post a blank peep!"
     else
-      peep = Peep.create(text: params[:peep], time_stamp: Time.now, user_id: current_user.id)
-      current_user.peeps << peep
+      current_user.peeps.create(text: params[:peep], time_stamp: Time.now)
     end
     get_users_peeps_and_replies
     erb :'sessions/peeps'
@@ -96,7 +94,7 @@ class Chitter < Sinatra::Base
       User.get(session[:user_id])
     end
 
-    def get_users_peeps_and_replies # this could be a method on User
+    def get_users_peeps_and_replies # this could be a method on Peep
       @peeps = @user.peeps.all(:order => :time_stamp.desc )
       all_users_peep_ids = @peeps.map{ |peep| peep.id }
       replies = Peep.all(reply: true)

@@ -46,7 +46,7 @@ feature 'Signing in' do
   end
 
   scenario 'when a logged in user looks at another user page with no peeps she can go back to her home page' do
-    User.create(username: 'tansaku', name: 'Samuel Russell Hampden Joseph', email: 'sam@makersacademy.com', password: 's3cr3t')
+    User.create(username: 'tansaku', name: 'Samuel Russell Hampden Joseph', email: 'sam@makersacademy.com', password: 's3cr3t') # use factory_girl to clean this up: https://github.com/makersacademy/course/blob/master/pills/factory_girl.md
     sign_in
     visit '/tansaku'
     expect(page).not_to have_selector 'form#peep'

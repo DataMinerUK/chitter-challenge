@@ -1,4 +1,8 @@
 require 'data_mapper'
+require 'dm-validations'
+require 'bcrypt'
+
+
 require './app/models/user'
 require './app/models/peep'
 

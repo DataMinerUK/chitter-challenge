@@ -14,3 +14,5 @@ class Peep
   belongs_to :user, :required => true
 
 end
+
+# what you really want here is a many-to-many connection with itself http://datamapper.org/docs/associations.html 

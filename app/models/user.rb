@@ -1,7 +1,3 @@
-require 'data_mapper'
-require 'dm-validations'
-require 'bcrypt'
-
 class User
 
   include DataMapper::Resource

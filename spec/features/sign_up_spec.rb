@@ -9,7 +9,7 @@ feature 'Signing up' do
     sign_up
     click_button 'Sign out'
     visit '/'
-    within 'form#sign_up' do
+    within 'form#sign_up' do # refactor!!! https://gist.github.com/ptolemybarnes/2dfda607b85d01e113b0
       fill_in 'username', with: 'test_name'
       fill_in 'name', with: 'another_name'
       fill_in 'email', with: 'another@email.com'
@@ -19,7 +19,7 @@ feature 'Signing up' do
     expect(page).to have_content 'This username is already taken'
   end
 
-  scenario 'user cannot sign up if the email is taken' do
+  scenario 'user cannot sign up if the email is taken' do # its not clear why this email is already taken
     sign_up
     click_button 'Sign out'
     visit '/'

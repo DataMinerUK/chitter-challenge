@@ -1,4 +1,4 @@
-feature 'Users can reply to peeps' do
+feature 'Users can reply to peeps' do # avoid hiding details away that you're then referring to in the test
 
   scenario 'logged-in users can reply to other users peeps' do
     another_user_peeps
